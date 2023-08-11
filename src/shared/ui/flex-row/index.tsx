@@ -17,7 +17,7 @@ export const FlexRow = forwardRef<HTMLDivElement, Props>(
 		<div
 			ref={ref}
 			className={clsx(style.row, nowrap && style.nowrap, flexEnd && style.flexEnd, className)}
-			style={{ columnGap, ...propsStyle }}
+			style={{ columnGap, rowGap: columnGap ? 0.5 * columnGap : undefined, ...propsStyle }}
 			{...props}
 		>
 			{children}
