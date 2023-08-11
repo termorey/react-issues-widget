@@ -1,6 +1,7 @@
 import { type Status } from "./interfaces.ts";
 import { createApi, createEffect, createStore, sample } from "effector";
 import { useStore } from "effector-react";
+import { Links } from "shared/config/links.ts";
 import { isDev } from "shared/config/environment.ts";
 import { generate } from "shared/lib/valuesGenerator.ts";
 import { generateStatusCodes } from "../lib/generateMock.ts";
@@ -21,7 +22,7 @@ export const fetchIssuesStatusesFx = createEffect(async ({ signal }: { signal?: 
 			return await new Promise((resolve) =>
 				setTimeout(() => resolve(generateStatusCodes()), generate.randomNumber(1000, 3000))
 			);
-		const result = await fetch("https://issues_statuses_get_link", { signal });
+		const result = await fetch(Links.issues_statuses, { signal });
 		if (result.ok) return await result.json();
 	} catch (e) {
 		console.error(e);
