@@ -3,7 +3,7 @@ import style from "./style.module.scss";
 import { IssueListItem } from "features/issue-list-item";
 import { fetchIssuesFx, useIssuesStore } from "entities/issue/model/issuesStore";
 import { fetchIssuesStatusesFx, useIssuesStatuses } from "entities/issue-status/model/issuesStatusesStore.ts";
-import { FlexColumn } from "shared/ui";
+import { FlexColumn, Preloader } from "shared/ui";
 
 const fetchController = new AbortController();
 
@@ -30,7 +30,7 @@ export const IssuesList = () => {
 		<FlexColumn className={style.issues} rowGap={16}>
 			<h3 className={style.title}>{"Known issues list"}</h3>
 			{pending ? (
-				<span>{"Loading..."}</span>
+				<Preloader />
 			) : (
 				<FlexColumn rowGap={16} className={style.list}>
 					{issues.map(
