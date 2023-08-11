@@ -1,3 +1,5 @@
+import { IssuesList } from "widgets/issues-list";
+
 export const App = () => {
-	return <div></div>;
+	return <IssuesList />;
 };
