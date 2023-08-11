@@ -1,0 +1,36 @@
+.preloader {
+	$size: 0.5rem;
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: center;
+	align-items: center;
+	column-gap: $size;
+
+	@mixin use-animation($order, $time) {
+		@keyframes loading {
+			from {
+				transform: translateX(-100%);
+			}
+			to {
+				transform: translateX(100%);
+			}
+		}
+
+		$delay: 0.2s;
+		&:nth-child(#{$order}) {
+			transform: translateX(-100%);
+			animation: $time loading calc($delay * $order) ease-in-out infinite alternate;
+		}
+	}
+
+	> span {
+		height: $size;
+		width: $size;
+		background: rgba(70, 70, 70);
+		border-radius: 50%;
+
+		@include use-animation(1, 2s);
+		@include use-animation(2, 2s);
+		@include use-animation(3, 2s);
+	}
+}
