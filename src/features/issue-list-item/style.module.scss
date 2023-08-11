@@ -1,0 +1,20 @@
+.item {
+	background: rgba(50, 30, 30, 1);
+	padding: 0.5rem;
+	border-radius: 0.25rem;
+
+	.info {
+		align-items: center;
+		cursor: pointer;
+
+		.title {
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			overflow-x: hidden;
+		}
+	}
+
+	.description {
+		overflow: hidden;
+	}
+}

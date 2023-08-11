@@ -1,0 +1,36 @@
+.status {
+	padding: 0.1rem 0.25rem;
+	border-radius: 0.25rem;
+	font-weight: bold;
+
+	&[data-status] {
+		$attribute: "data-status";
+		background: rgb(70, 50, 50);
+
+		// rejected
+		&[#{$attribute}="0"] {
+			background: rgb(150, 20, 20);
+		}
+
+		// waiting
+		&[#{$attribute}="1"] {
+			background: rgb(234, 234, 84);
+			color: rgb(20, 20, 20);
+		}
+
+		// in work
+		&[#{$attribute}="2"] {
+			background: rgb(140, 140, 34);
+		}
+
+		// future
+		&[#{$attribute}="3"] {
+			background: rgb(169, 98, 5);
+		}
+
+		// resolved
+		&[#{$attribute}="4"] {
+			background: rgb(70, 50, 50);
+		}
+	}
+}
