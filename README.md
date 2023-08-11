@@ -1,3 +1,16 @@
+# Usage as widget
+
+- Build app with build command
+- Include links in your page like in the build html file from dist directory
+- Use script to start module on page
+```js
+const element = document.getElementById('element-id');
+if (element && window.widgets?.IssueWidget) {
+	new window.widgets.IssueWidget({element});
+}
+```
+- `element` can be a `flex` container for creation adaptive height
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
