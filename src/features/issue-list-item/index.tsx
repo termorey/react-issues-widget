@@ -4,9 +4,8 @@ import type { Status } from "entities/issue-status/model/interfaces.ts";
 import React, { useRef, useState } from "react";
 import { a, useTransition } from "@react-spring/web";
 import style from "./style.module.scss";
-import { AnimatedFlexColumn, FlexColumn, FlexRow } from "shared/ui";
-import { IssueStatus } from "../../entities/issue-status/ui/issue-status";
-import { Label } from "../../shared/ui/label";
+import { IssueStatus } from "entities/issue-status/ui/issue-status";
+import { AnimatedFlexColumn, FlexColumn, FlexRow, Label } from "shared/ui";
 
 interface Props {
 	issue: Issue;
@@ -56,5 +55,3 @@ export const IssueListItem: React.FC<Props> = ({ issue, status, ...props }) => {
 		</FlexColumn>
 	);
 };
-
-export const AnimatedIssueListItem = a(IssueListItem);
