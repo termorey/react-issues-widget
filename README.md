@@ -6,7 +6,11 @@
 ```js
 const element = document.getElementById('element-id');
 if (element && window.widgets?.IssueWidget) {
-	new window.widgets.IssueWidget({element});
+	const links: Links = {
+		issues: "/api/issues",
+		issuesStatuses: "/api/issues/statuses",
+	};
+	new window.widgets.IssueWidget({element, links});
 }
 ```
 - `element` can be a `flex` container for creation adaptive height
