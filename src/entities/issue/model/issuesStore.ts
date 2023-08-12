@@ -1,10 +1,7 @@
 import { createApi, createEffect, createStore, sample } from "effector";
 import { Issue } from "./interfaces.ts";
 import { useStore } from "effector-react";
-import { Links } from "shared/config/links.ts";
-import { isDev } from "shared/config/environment";
-import { generate } from "shared/lib/valuesGenerator";
-import { generateIssue } from "../lib/generateMock";
+import { $links } from "shared/config/links.ts";
 
 type State = Issue[];
 
@@ -15,21 +12,9 @@ export const issuesApi = createApi($issues, {
 });
 
 export const fetchIssuesFx = createEffect(async ({ signal }: { signal?: AbortSignal }) => {
+	const link = $links.getState().issues;
 	try {
-		if (isDev)
-			return new Promise((resolve) =>
-				setTimeout(
-					() =>
-						resolve(
-							new Array(20)
-								.fill(1)
-								.map((v, i) => v + i)
-								.map((id) => generateIssue(id))
-						),
-					generate.randomNumber(1000, 3000)
-				)
-			);
-		const result = await fetch(Links.issues, { signal });
+		const result = await fetch(link, { signal });
 		if (result.ok) return await result.json();
 	} catch (e) {
 		console.error(e);
