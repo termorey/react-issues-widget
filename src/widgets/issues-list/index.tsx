@@ -5,14 +5,13 @@ import { fetchIssuesFx, useIssuesStore } from "entities/issue/model/issuesStore"
 import { fetchIssuesStatusesFx, useIssuesStatuses } from "entities/issue-status/model/issuesStatusesStore.ts";
 import { FlexColumn, Preloader } from "shared/ui";
 
-const fetchController = new AbortController();
-
 export const IssuesList = () => {
 	const issues = useIssuesStore();
 	const issuesStatuses = useIssuesStatuses();
 	const [pending, setPending] = useState(false);
 
 	useEffect(() => {
+		const fetchController = new AbortController();
 		const createIssues: (options: { signal: AbortSignal }) => void = ({ signal }) => {
 			setPending(true);
 			Promise.all([fetchIssuesFx({ signal }), fetchIssuesStatusesFx({ signal })]).finally(() => {
