@@ -3,7 +3,7 @@
 - Build app with build command
 - Include links in your page like in the build html file from dist directory
 - Use script to start module on page
-```js
+```ts
 const element = document.getElementById('element-id');
 if (element && window.widgets?.IssueWidget) {
 	const links: Links = {
@@ -15,30 +15,73 @@ if (element && window.widgets?.IssueWidget) {
 ```
 - `element` can be a `flex` container for creation adaptive height
 
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+# Endpoints
+## Issues
+```ts
+type Response = Array<Issue>;
+```
+## Issues statuses
 
--   [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
--   [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```ts
+type Response = {
+	[code: StatusCode]: Status<StatusCode>;
+}
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
--   Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+interface Status<Code extends StatusCode> {
+	code: Code;
+	title: string;
+}
 ```
 
--   Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
--   Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
--   Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+
+
+# Types
+## Options
+```ts
+interface Options {
+	element: HTMLElement;
+	links: Links;
+}
+```
+## Links
+```ts
+interface Links {
+	issues: string;
+	issuesStatuses: string;
+}
+```
+## Issue
+```ts
+interface Issue {
+	id: number;
+	version: string;
+	statusCode: StatusCode;
+	title: string;
+	body: string;
+	createdAt?: string;
+	updatedAt?: string;
+	publishedAt?: string;
+}
+```
+## Status
+```ts
+interface Status {
+	code: StatusCode;
+	title: string;
+}
+```
+## StatusCode
+Examples of status codes with visual style
+
+```ts
+type StatusCode = 0 | 1 | 2 | 3 | 4; // ... number
+const StatusCodes: { [name: string]: StatusCode } = {
+	rejected: 0, // rejected problem
+	waiting: 1, // waiting any another status
+	inWork: 2, // now in work
+	future: 3, // will be in the future update
+	resolved: 4, // just resolved
+}
+```
