@@ -1,6 +1,6 @@
-import type { Issue } from "../model/interfaces";
-import { generate } from "shared/lib/valuesGenerator";
-import { StatusCodes } from "entities/issue-status/model/interfaces";
+import type { Issue } from "entities/issue/model/interfaces.ts";
+import { generate } from "shared/lib/valuesGenerator.ts";
+import { StatusCodes } from "entities/issue-status/model/interfaces.ts";
 
 const status = Object.keys(StatusCodes) as (keyof typeof StatusCodes)[];
 

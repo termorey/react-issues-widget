@@ -1,4 +1,4 @@
-import { Status, StatusCodes } from "../model/interfaces.ts";
+import { Status, StatusCodes } from "entities/issue-status/model/interfaces.ts";
 
 export const generateStatusCodes: () => { [code: number]: Status } = () =>
 	Object.entries(StatusCodes)
