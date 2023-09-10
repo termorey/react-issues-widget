@@ -6,7 +6,7 @@ import { generateIssue } from "mocks/generators/generateIssue.ts";
 
 type State = Issue[];
 
-export const $issues = createStore<State>([]);
+const $issues = createStore<State>([]);
 export const useIssuesStore = () => useStore($issues);
 export const issuesApi = createApi($issues, {
 	setIssues: (_, issues) => issues,
@@ -15,11 +15,11 @@ export const issuesApi = createApi($issues, {
 export const fetchIssuesFx = createEffect(async ({ signal }: { signal?: AbortSignal }) => {
 	const link = $links.getState().issues;
 	try {
-		if (import.meta.env.VITE_BUILD_MODE_PREVIEW) {
-			const issues = new Array(20).map((_, id) => id).map(generateIssue);
-			console.log("issues", issues);
-			return issues;
-		}
+		if (import.meta.env.VITE_BUILD_MODE_PREVIEW)
+			return new Array(20)
+				.fill(null)
+				.map((_, id) => id)
+				.map(generateIssue);
 		const result = await fetch(link, { signal });
 		if (result.ok) return await result.json();
 	} catch (e) {
