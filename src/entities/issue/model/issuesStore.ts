@@ -15,9 +15,7 @@ export const issuesApi = createApi($issues, {
 export const fetchIssuesFx = createEffect(async ({ signal }: { signal?: AbortSignal }) => {
 	const link = $links.getState().issues;
 	try {
-		console.log("fetch issues", import.meta.env.VITE_BUILD_MODE_PREVIEW);
-		if (import.meta.env.VITE_BUILD_MODE_PREVIEW)
-			return new Array({ length: 20 }).map((_, id) => id).map(generateIssue);
+		if (import.meta.env.VITE_BUILD_MODE_PREVIEW) return new Array(20).map((_, id) => id).map(generateIssue);
 		const result = await fetch(link, { signal });
 		if (result.ok) return await result.json();
 	} catch (e) {
