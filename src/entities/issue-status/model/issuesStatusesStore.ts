@@ -2,6 +2,7 @@ import { type Status } from "./interfaces.ts";
 import { createApi, createEffect, createStore, sample } from "effector";
 import { useStore } from "effector-react";
 import { $links } from "shared/config/links.ts";
+import { generateStatusCodes } from "mocks/generators/generateStatusCodes.ts";
 
 type State = {
 	[code: number]: Status;
@@ -16,6 +17,8 @@ export const issuesStatuses = createApi($issuesStatuses, {
 export const fetchIssuesStatusesFx = createEffect(async ({ signal }: { signal?: AbortSignal }) => {
 	const link = $links.getState().issuesStatuses;
 	try {
+		if (import.meta.env.BUILD_MODE_PREVIEW)
+			return new Array({ length: 20 }).map((_, id) => id).map(generateStatusCodes);
 		const result = await fetch(link, { signal });
 		if (result.ok) return await result.json();
 	} catch (e) {
