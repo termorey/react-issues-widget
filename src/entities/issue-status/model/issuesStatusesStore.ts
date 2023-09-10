@@ -17,7 +17,11 @@ export const issuesStatuses = createApi($issuesStatuses, {
 export const fetchIssuesStatusesFx = createEffect(async ({ signal }: { signal?: AbortSignal }) => {
 	const link = $links.getState().issuesStatuses;
 	try {
-		if (import.meta.env.VITE_BUILD_MODE_PREVIEW) return new Array(20).map((_, id) => id).map(generateStatusCodes);
+		if (import.meta.env.VITE_BUILD_MODE_PREVIEW)
+			return new Array(20)
+				.fill(null)
+				.map((_, id) => id)
+				.map(generateStatusCodes);
 		const result = await fetch(link, { signal });
 		if (result.ok) return await result.json();
 	} catch (e) {
