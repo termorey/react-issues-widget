@@ -1,0 +1,54 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "master" branch
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "poduction" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+variables:
+  HASH: "$(date +\"%Y%m%d-%H%M%S\")"
+  BUILD_FOLDER: "build"
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout
+        uses: actions/checkout@v3
+      # Runs a single command using the runners shell
+      - name: Use NodeJS ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install packages
+        run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Create artifacts
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: ${{ BUILD_FOLDER }}
+
+  deploy:
+    steps:
+      -name: Deploy
+        uses: actions/deploy-pages@v2
+
