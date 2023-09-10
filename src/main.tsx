@@ -38,7 +38,6 @@ const start = async () => {
 
 	if (isDev) {
 		const { startMockServer } = await import("./mocks/browser");
-		console.log("TEST");
 		const element = document.getElementById("root");
 		const links: Links = {
 			issues: "/api/issues",
@@ -49,5 +48,22 @@ const start = async () => {
 		else throw Error("Undefined target element");
 	}
 };
+
+if (import.meta.env.VITE_BUILD_MODE_PREVIEW) {
+	const onClick = () => {
+		const element = document.getElementById("root");
+		const links = {
+			issues: "/api/issues",
+			issuesStatuses: "/api/issues/statuses",
+		};
+		const ImportedWidget = window.widgets.IssueWidget as typeof Widget;
+		if (element) new ImportedWidget({ element, links });
+	};
+
+	const createButton = document.createElement("button");
+	createButton.innerText = "Add widget on page";
+	createButton.addEventListener("click", onClick);
+	document.body.prepend(createButton);
+}
 
 start().catch((e) => console.log(e));
