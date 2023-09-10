@@ -31,6 +31,8 @@ export class Widget {
 	}
 }
 
+console.log("PREVIEW_MODE = ", import.meta.env.VITE_BUILD_MODE_PREVIEW);
+
 const start = async () => {
 	window.widgets = { ...window.widgets, IssueWidget: Widget };
 
