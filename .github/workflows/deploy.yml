@@ -34,12 +34,14 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Cteate .env
+        run: |
+          touch .env
+          echo BUILD_URL="./" >> .env
       - name: Install packages
         run: npm ci
       - name: Build
-        run: |
-          set BASE_URL="./" \
-          npm run build \
+        run: npm run build
       - name: Create artifacts
         uses: actions/upload-pages-artifact@v2
         with:
