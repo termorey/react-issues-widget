@@ -38,6 +38,8 @@ jobs:
         run: |
           touch .env
           echo BUILD_URL="https://termorey.github.io/react-issues-widget/" >> .env
+      - name: Check files
+        run: ls
       - name: Install packages
         run: npm ci
       - name: Build
