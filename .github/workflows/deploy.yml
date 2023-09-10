@@ -13,10 +13,6 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-variables:
-  HASH: "$(date +\"%Y%m%d-%H%M%S\")"
-  BUILD_FOLDER: "build"
-
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
 
@@ -45,10 +41,7 @@ jobs:
       - name: Create artifacts
         uses: actions/upload-pages-artifact@v2
         with:
-          path: ${{ BUILD_FOLDER }}
-
-  deploy:
-    steps:
-      -name: Deploy
+          path: ./build/
+      - name: Deploy
         uses: actions/deploy-pages@v2
 
