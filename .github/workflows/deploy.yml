@@ -39,6 +39,7 @@ jobs:
       - name: Build
         env:
           BASE: "./"
+          VITE_BUILD_MODE_PREVIEW: true
         run: npm run build
       - name: Create artifacts
         uses: actions/upload-pages-artifact@v2
