@@ -34,15 +34,11 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Cteate .env
-        run: |
-          touch .env
-          echo BUILD_URL="https://termorey.github.io/react-issues-widget/" >> .env
-      - name: Check files
-        run: ls
       - name: Install packages
         run: npm ci
       - name: Build
+        env:
+          BASE_URL: "./"
         run: npm run build
       - name: Create artifacts
         uses: actions/upload-pages-artifact@v2
