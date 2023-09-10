@@ -39,7 +39,6 @@ jobs:
       - name: Build
         env:
           BASE: "./"
-          BASE_URL: "./"
         run: npm run build
       - name: Create artifacts
         uses: actions/upload-pages-artifact@v2
